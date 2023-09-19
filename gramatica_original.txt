@@ -1,0 +1,55 @@
+VT = {
+    id, num, si, entonces, sino, finsi, repetir, hasta, equal,
+    leer, mostrar, func, finfunc, (, ), ;, oprel, opsuma, opmult
+}
+
+VN = {
+    Program, ListaSentencias, Sentencia, SentenciaSi,
+    SentenciaRepetir, SentenciaAsig, SentenciaLeer, SentenciaMostrar,
+    SentenciaFun,Proc, ListaPar, Expression, Expresion2, Factor,
+    Termino
+}
+
+S = Program
+
+P = {
+         Program --> ListaSentencias
+
+ ListaSentencias -->  ListaSentencias;Sentencia
+                  | Sentencia
+
+       Sentencia -->  SentenciaSi
+                    | SentenciaRepetir
+                    | SentenciaAsig
+                    | SentenciaLeer
+                    | SentenciaMostrar
+                    | SentenciaFun
+
+     SentenciaSi -->  “si” Expresion “entonces” ListaSentencias “sino” ListaSentencias “finsi”
+                    | “si” Expresion “entonces” ListaSentencias “finsi”
+
+SentenciaRepetir --> “repetir” ListaSentencias “hasta” Expresion
+
+   SentenciaAsig --> “id” “equal” Expresion
+
+   SentenciaLeer --> “leer” “id”
+
+SentenciaMostrar --> “mostrar” Expresion
+
+    SentenciaFun --> “func” Proc “finfunc”
+
+            Proc --> “id” “(“ ListaPar “)” ListaSentencias
+
+        ListaPar -->  ListaPar “;” “id”
+                    | “id”
+
+       Expresion -->  Expresion2 “oprel” Expresion2
+                    | Expresion2
+
+      Expresion2 -->  Expresion2 “opsuma” Termino
+                    | Termino
+
+         Termino -->  Termino “opmult” Factor | Factor
+
+          Factor --> “(“ Expresion “)” | “num” | “id”
+}

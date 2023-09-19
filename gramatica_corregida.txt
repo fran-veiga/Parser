@@ -1,0 +1,71 @@
+VT = {
+    id, num, si, entonces, sino, finsi, repetir, hasta, equal,
+    leer, mostrar, func, finfunc, (, ), ;, oprel, opsuma, opmult
+}
+
+VN = {
+    Program, ListaSentencias, Sentencia, SentenciaSi,
+    SentenciaRepetir, SentenciaAsig, SentenciaLeer, SentenciaMostrar,
+    SentenciaFun,Proc, ListaPar, Expression, Expresion2, Factor,
+    Termino
+}
+
+S = Program
+
+P = {
+         Program  --> ListaSentencias
+
+ ListaSentencias  --> Sentencia ListaSentencias_p
+
+ListaSentencias_p -->  ";" Sentencia ListaSentencias_p 
+                     | λ
+
+       Sentencia  -->  SentenciaSi
+                     | SentenciaRepetir
+                     | SentenciaAsig
+                     | SentenciaLeer
+                     | SentenciaMostrar
+                     | SentenciaFun
+
+     SentenciaSi  -->  "si" Expresion "entonces" ListaSentencias SentenciaSi_p
+
+   SentenciaSi_p  -->  "sino" ListaSentencias "finsi"
+                     | "finsi" 
+
+SentenciaRepetir  -->  "repetir" ListaSentencias "hasta" Expresion
+
+   SentenciaAsig  -->  "id" "equal" Expresion
+
+   SentenciaLeer  -->  "leer" "id"
+
+SentenciaMostrar  -->  "mostrar" Expresion
+
+    SentenciaFun  -->  "func" Proc "finfunc"
+
+            Proc  -->  "id" "(" ListaPar ")" ListaSentencias
+
+        ListaPar  -->  "id" ListaPar_p
+
+      ListaPar_p  -->  ";" "id" ListaPar_p
+                     | λ
+
+       Expresion  -->  Expresion2 Expresion_p
+
+     Expresion_p  -->  "oprel" Expresion2
+                     | λ
+
+      Expresion2  -->  Termino Expresion2_p
+
+    Expresion2_p  -->  "opsum" Termino Expresion2_p
+                     | λ
+
+         Termino  -->  Factor Termino_p
+
+       Termino_p  --> "opmult" Factor Termino_p
+                     | λ
+
+
+          Factor  -->  "(" Expresion ")" 
+                     | "num" 
+                     | "id"
+}

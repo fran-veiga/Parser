@@ -1,0 +1,46 @@
+SD(Program->ListaSentencias) = { "si", "repetir" , "id" , "leer" , "mostrar" , "func"}
+
+SD(ListaSentencia -> Sentencia  ListaSentencia_p) = { "si" , "repetir" , "id" , "leer", "mostrar" , "func" }
+
+SD(ListaSentencia_p -> ";" Sentencia ListaSentencias_p ) = {";"}
+SD(ListaSentencia_p -> λ )  = {"#", "finfunc",  "finsi", "sino", "hasta"}
+  
+SD(Sentencia -> SentenciaSi) = {"si"}
+SD(Sentencia -> SentenciaRepertir) = {"repetir"}
+SD(Sentencia -> SentenciaAsig) = {"id"}
+SD(Sentencia -> SentenciaLeer) = {"leer"}
+SD(Sentencia -> SentenciaMostrar) = {"mostrar"}
+SD(Sentencia -> SentenciaFun) = {"func"}
+
+SD(SentenciaRepetir -> "repetir" ListaSentencias "hasta" Expresion) = {"repetir"}
+
+SD(SentenciaSi -> "si" Expresion "entonces" ListaSentencias SentenciaSi_p) = {"si"}
+SD(SentenciaSi_p -> "sino" ListaSentencia "finsi") = {"sino"}
+SD(SentenciaSi_p -> "finsi") = {"finsi"}
+
+SD(SentenciaAsig -> "id" "equal" Expresion) = {"id"}
+SD(SentenciaLeer -> "leer" "id") = {"leer"}
+SD(SentenciaMostrar -> "mostrar" Expresion) = {"mostrar"}
+SD(SentenciaFun -> "func" Proc "finfunc") = {"func"}
+
+SD(Proc -> "id" "(" ListaPar ")" ListaSentencias) = {"id"}
+
+SD(ListaPar ->  "id" ListaPar_p) = {"id"}
+SD(ListaPar_p -> ";", "id", ListaPar_p) = {";"}
+SD(ListaPar_p -> λ)  = {")"}
+
+SD(Expresion -> Expresion2 Expresion_p) = {"(", "num", "id"}
+SD(Expresion_p -> "oprel" Expresion2) {"oprel"}
+SD(Expresion_p -> λ ) ={ ")", "#", ";", "finfunc", "finsi", "sino", "hasta", "entonces"}
+
+SD(Expresion2 -> Termino Expresion2_p) = {"(", "num", "id"}
+SD(Expresion2_p -> "opsuma" Termino Expresion2_p) ={"opsuma"}
+SD(Expresion2_p -> λ) ={ ")", "#", ";", "oprel", "finfunc", "finsi", "sino", "hasta", "entonces"} 
+
+SD(Termino -> Factor Termino_p) = {"(" , "num", "id"}
+SD(Termino_p -> "opmult" Factor Termino_p) = {"opmult"}
+SD(Termino_p -> λ) = {")", "#", "opsuma", ";", "oprel", "finfunc", "finsi", "sino", "hasta", "entonces"}
+
+SD(Factor -> "(" Expresion ")" ) = { "(" }
+SD(Factor -> "num")= {"num"}
+SD(Factor -> "id") = {"id"}
