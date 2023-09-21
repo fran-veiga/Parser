@@ -6,7 +6,7 @@ SD(ListaSentencia_p -> ";" Sentencia ListaSentencias_p ) = {";"}
 SD(ListaSentencia_p -> λ )  = {"#", "finfunc",  "finsi", "sino", "hasta"}
   
 SD(Sentencia -> SentenciaSi) = {"si"}
-SD(Sentencia -> SentenciaRepertir) = {"repetir"}
+SD(Sentencia -> SentenciaRepetir) = {"repetir"}
 SD(Sentencia -> SentenciaAsig) = {"id"}
 SD(Sentencia -> SentenciaLeer) = {"leer"}
 SD(Sentencia -> SentenciaMostrar) = {"mostrar"}
