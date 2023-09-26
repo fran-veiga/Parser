@@ -1,10 +1,12 @@
-
-
 VT = ["DerParen", "IzqParen", "PuntoYComa", "Entonces", "Equal", "FinFunc", "FinSi", "Func",
-      "Hasta", "Leer", "Mostrar", "Repetir", "Si", "Sino", "Oprel", "Opmult", "Opsuma", "Num", "Id"]
+      "Hasta", "Leer", "Mostrar", "Repetir", "Si", "Sino", "Oprel", "Opmult",
+      "Opsuma", "Num", "Id", "#"]
 
 VN = ["Program", "ListaSentencias", "ListaSentencias_p", "Sentencia", "SentenciaSi", "SentenciaSi_p", "SentenciaRepetir", "SentenciaAsig", "SentenciaLeer",
       "SentenciaMostrar", "SentenciaFun", "Proc", "ListaPar", "ListaPar_p", "Expresion", "Expresion_p", "Expresion2", "Expresion2_p", "Termino", "Termino_p", "Factor", ]
+
+simbolo_inicial = "Program"
+
 P = {
     "Program": [
         ["ListaSentencias"]
