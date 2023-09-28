@@ -8,6 +8,7 @@ def parser(lista):
         'tokens': lista,
         'index': 0,
         'error': False,
+        'error_t': None,
     }
 
     def procesar(cadena):
@@ -40,20 +41,129 @@ def parser(lista):
             print('la cadena no pertenece al lenguaje ')
             return False
         print('la cadena pertence al lenguaje')
+
         return True
 
     return principal()
 
 
-program = '''
-func hello(x)
-    hello equal 1234;
-    mostrar hello
+tests = [
+    # test 1
+    '''
+x equal 98234;
+
+si 6 < 7 entonces
+    x equal x / 4
+sino
+    x equal x / 3
+finsi
+''',
+
+    # test 2
+    '''
+func mult(n1; n2)
+    x equal n1 * n2;
+    mostrar x
 finfunc
-'''
+''',
 
-tokens = lexer(program)
-print(tokens)
-parser(tokens)
+    # test 3
+    '''
+leer x;
+
+i equal 0;
+repetir
+    mostrar i;
+    i equal i + 1
+hasta i = x
+''',
+
+    # test 4
+    '''
+23hola+-sifinsi
+''',
+
+    # test 5
+    ''' 
+repetir
+    iequali+1;
+    leerx;
+    x=x*x;
+    mostrarx
+hasta i=33
+''',
+
+    # test 6
+    ''' 
+vmax=0;
+leer y;
+si y>vmax entonces
+    vmax equal y
+sino
+    e equal e+1
+finsi
+mostrar vmax;
+mostrar e
+''',
+
+    # test 7
+    '''
+repetir
+    i equal i+1;
+    leer nombre;
+    leer edad;
+    si edad>=18 entonces 
+        mostrar nombre
+    sino
+        vdif equal 18-edad;
+        mostrar vdif
+    finsi
+hasta i=20
+''',
+
+    # test 8
+    '''
+leer x;
+leer y;
+si x>y entonces 
+    x equal x+y
+sino
+    y equal x+y
+finsi
+''',
+
+    # test 9
+    '''
+func rest(n1; n2)
+    x equal n1 - n2;
+    mostrar x
+finfunc
+''',
+
+    # test 10
+    '''
+vmax equal 0;
+repetir
+    i equal i+1;
+    leer socio;
+    leer dni;
+    leer edad;
+    si edad>vmax entonces 
+        msocio equal socio;
+        mdni equal dni;
+        medad equal edad
+    finsi
+hasta i=50;
+mostrar msocio;
+mostrar mdni;
+mostrar medad
+''',
+]
 
 
+for i in range(len(tests)):
+    print(f'=========TEST N°{i+1}=========')
+    print(tests[i])
+    print(f'---- RESULTADO \t {parser(lexer(tests[i]))}')
+    print("")
+    print("")

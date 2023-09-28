@@ -194,7 +194,7 @@ SD = {
     },
 
     "Expresion_p": {
-        "Oprel": ["oprel", "Expresion2"],
+        "Oprel": ["Oprel", "Expresion2"],
         "DerParen": [],
         "#": [],
         "PuntoYComa": [],
@@ -225,9 +225,9 @@ SD = {
     },
 
     "Termino": {
-        "IzqParen": ["IzqParen", "Expresion", "DerParen"],
-        "Num": ["Num"],
-        "Id": ["Id"],
+        "IzqParen": ["Factor", "Termino_p"],
+        "Num": ["Factor", "Termino_p"],
+        "Id": ["Factor", "Termino_p"],
     },
 
     "Termino_p": {
@@ -242,5 +242,11 @@ SD = {
         "Sino": [],
         "Hasta": [],
         "Entonces": [],
+    },
+
+    "Factor": {
+        "IzqParen": ["IzqParen", "Expresion", "DerParen"],
+        "Num": ["Num"],
+        "Id": ["Id"]
     }
 }
