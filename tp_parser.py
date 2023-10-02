@@ -9,6 +9,7 @@ def parser(lista):
         'index': 0,
         'error': False,
         'error_t': None,
+        'derivaciones': []
     }
 
     def procesar(cadena):
@@ -20,6 +21,7 @@ def parser(lista):
                     datos_locales['index'] += 1
                 else:
                     datos_locales['error'] = True
+                    break
             elif simbolo in VN:
                 procedimiento_PNI(simbolo)
                 if datos_locales['error']:
@@ -29,20 +31,31 @@ def parser(lista):
         datos_locales['error'] = False
         actual = datos_locales['tokens'][datos_locales['index']][0]
         simbolos_directrices = SD[simbolo]
+
         if actual in simbolos_directrices:
-            procesar(simbolos_directrices[actual])
+            cadena_derivacion = simbolos_directrices[actual]
+            derivacion = [simbolo, cadena_derivacion]
+            datos_locales["derivaciones"].append(derivacion)
+            procesar(cadena_derivacion)
         else:
             datos_locales['error'] = True
 
     def principal():
         procedimiento_PNI(simbolo_inicial)
-        actual = datos_locales['tokens'][datos_locales['index']][0]
-        if actual != '#' or datos_locales['error']:
-            print('la cadena no pertenece al lenguaje ')
+        if datos_locales['error']:
+            print('La cadena no pertenece al lenguaje.')
             return False
-        print('la cadena pertence al lenguaje')
-
-        return True
+        actual = datos_locales['tokens'][datos_locales['index']][0]
+        if actual == '#':
+            print('La cadena pertenece al lenguaje.')
+            print('Derivaciones utilizadas:\n')
+            for deriv in datos_locales['derivaciones']:
+                print(deriv[0] + " -> ", end="")
+                if deriv[1]:
+                    print(' '.join(deriv[1]))
+                else:
+                    print("(lambda)")
+            return True
 
     return principal()
 
@@ -84,7 +97,7 @@ hasta i = x
 ''',
 
     # test 5
-    ''' 
+    '''
 repetir
     iequali+1;
     leerx;
@@ -94,7 +107,7 @@ hasta i=33
 ''',
 
     # test 6
-    ''' 
+    '''
 vmax=0;
 leer y;
 si y>vmax entonces
@@ -112,7 +125,7 @@ repetir
     i equal i+1;
     leer nombre;
     leer edad;
-    si edad>=18 entonces 
+    si edad>=18 entonces
         mostrar nombre
     sino
         vdif equal 18-edad;
@@ -125,7 +138,7 @@ hasta i=20
     '''
 leer x;
 leer y;
-si x>y entonces 
+si x>y entonces
     x equal x+y
 sino
     y equal x+y
@@ -148,7 +161,7 @@ repetir
     leer socio;
     leer dni;
     leer edad;
-    si edad>vmax entonces 
+    si edad>vmax entonces
         msocio equal socio;
         mdni equal dni;
         medad equal edad
